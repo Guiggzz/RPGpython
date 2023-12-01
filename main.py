@@ -23,4 +23,5 @@ Bordane = Personnage("Bordane", "Chevalier")
 Bordane.jeu()
 
 
-   
+
+  bite 
