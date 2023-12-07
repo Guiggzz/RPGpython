@@ -1,0 +1,33 @@
+from gears.armor import armor
+from gears.weapon import Weapon
+class Barbare:
+    def __init__(self, name, armor: armor, weapon: Weapon = Weapon('Le saint batôn de berger'), hp: float = 80):
+        self.name = name
+        self.hp = hp
+
+    def attack(self, other):
+            count = 0
+            while count <= 2:
+                count +=1
+                if self.weapon_name == 'Epée':
+                    if other.armor_defense >= 30:
+                        other.armor_defense -= 30
+                        print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
+                    else:
+                        other.hp -= 30
+                        print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
+                elif self.weapon_name == 'Pioche':
+                    if other.armor_defense >= 25:
+                        other.armor_defense -= 25
+                        print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
+                    else:
+                        other.hp -= 25
+                        print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
+                elif self.weapon_name == 'Coup de poing':
+                    if other.armor_defense >= 20:
+                        other.armor_defense -= 20
+                        print(f'{self.name} attaque {other.name} avec ses {self.weapon_name}')
+                    else:
+                        other.hp -= 20
+                        print(f'{self.name} attaque {other.name} avec ses{self.weapon_name}')
+                
