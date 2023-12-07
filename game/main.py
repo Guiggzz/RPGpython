@@ -36,6 +36,7 @@ else:
     print("Vous n'aver pas choisi d'armure")
     
 
-
+if 
 print(f"Vous avez une {user_weapon.name} et elle met {user_weapon.damage} de points de dégat")
 print(f"Vous avez une {user_armor.name} et elle a {user_armor.defense} de points de défense")
+f,jzojiezpfmq
