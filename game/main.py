@@ -1,6 +1,7 @@
 from gears.armor import armor
 from gears.weapon import Weapon
 from characters.character import Character
+from characters.Barbarian import Barbare
 
 little_armor = armor('armure partielle', 50)
 mid_armor = armor('armure moyenne', 75)
@@ -46,8 +47,7 @@ if equipment_condition:
     print(f"Vous avez une {user_armor.name} et elle a {user_armor.defense} de points de défense")
 
 jane = Character("Jane", user_armor, user_weapon, 120)
-john = Character("John", user_armor, user_weapon, 100)
-Barbare = Character("Barbare", user_armor, user_weapon, 100)
+john = Character("John", user_armor, user_weapon, 100, 'Barbare')
 
 Barbare.attack(jane)
 
@@ -56,3 +56,4 @@ print(john.name, john.hp, "HP et", john.armor_defense, "de defense")
 print(jane.name, jane.hp, "HP et", jane.armor_defense,"de defense")
 print(Barbare.name, Barbare.hp, "HP et", Barbare.armor_defense,"de defense")
 print("------------------")
+
