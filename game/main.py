@@ -1,6 +1,6 @@
 from gears.armor import armor
 from gears.weapon import Weapon
-
+from characters.character import Character
 
 little_armor = armor('armure partielle', 50)
 mid_armor = armor('armure moyenne', 75)
@@ -46,3 +46,14 @@ else:
 if equipment_condition == True:
     print(f"Vous avez une {user_weapon.name} et elle met {user_weapon.damage} de points de dégat")
     print(f"Vous avez une {user_armor.name} et elle a {user_armor.defense} de points de défense")
+
+
+jane = Character("Jane", armor_choose, weapon_choose, 120)
+john = Character("John", armor_choose, weapon_choose, 100)
+
+john.attack(jane)
+print("Results: ")
+print(john.name, john.hp, "HP")
+print(jane.name, jane.hp, "HP")
+input("------------------")
+
