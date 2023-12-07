@@ -1,0 +1,8 @@
+from gears.armor import armor
+from gears.weapon import Weapon
+class Barbian:
+    def __init__(self, name, armor: armor, weapon: Weapon = Weapon('Le saint batôn de berger'), hp: float = 80, character_type = None):
+        self.name = name
+        self.hp = hp
+        self.character_type = character_type
+        le zizi

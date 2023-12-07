@@ -1,7 +1,7 @@
 from gears.armor import armor
 from gears.weapon import Weapon
 from characters.character import Character
-from characters.barbarian import Barbarian
+from characters.Barbarian import Barbare
 
 no_armor = armor("Pas d'armure", 0)
 little_armor = armor('armure partielle', 50)
@@ -12,60 +12,55 @@ sword_weapon = Weapon('Epée', 30)
 pickaxe_weapon = Weapon('Pioche', 25)
 fist_weapon = Weapon('Coup de poing', 20)
 
-def choose_equipment(character_name):
-    print(f"Équipement pour {character_name}:")
-    
-    # Armor selection
-    armor_choose = input(f"Quelle armure souhaitez-vous équiper pour {character_name} ? (1 : armure partielle, 2 : armure moyenne, 3 : armure complète) : ")
-    if armor_choose == "1":
-        user_armor = little_armor
-    elif armor_choose == "2":
-        user_armor = mid_armor
-    elif armor_choose == "3":
-        user_armor = complete_armor
-    else: 
-        print(f"Vous n'avez pas choisi d'armure pour {character_name}")
-        return None, None
-    
-    # Weapon selection
-    weapon_choose = input(f"Quelle arme souhaitez-vous équiper pour {character_name} ? (1 : Epée, 2 : Pioche, 3 : Coup de poing) : ")
-    if weapon_choose == "1":
-        user_weapon = sword_weapon
-    elif weapon_choose == "2":
-        user_weapon = pickaxe_weapon
-    elif weapon_choose == "3":
-        user_weapon = fist_weapon
-    else: 
-        print(f"Vous n'avez pas choisi d'arme pour {character_name}")
-        return None, None
-    
-    return user_armor, user_weapon
 
-# Initialize equipment for Jane
-user_armor_jane, user_weapon_jane = choose_equipment("Jane")
+armor_choose = input("Quelle armure souhaitez-vous équiper 1, 2, 3 ? (1 : armure partielle, 2 : armure moyenne, 3 : armure complète) : ")
+user_armor = None
+equipment_condition = False
 
-# Display equipment for Jane
-if user_armor_jane and user_weapon_jane:
-    print(f"Jane a une {user_weapon_jane.name} qui met {user_weapon_jane.damage} de points de dégât")
-    print(f"Jane a une {user_armor_jane.name} qui a {user_armor_jane.defense} de points de défense")
+weapon_choose = input("Quelle arme souhaitez-vous équiper 1, 2, 3 ? (1 : Epée, 2 : Pioche, 3 : Coup de poing) : ")
+user_weapon = None
 
-# Initialize equipment for John
-user_armor_john, user_weapon_john = choose_equipment("John")
+if armor_choose == "1":
+    user_armor = little_armor
+    equipment_condition = True
+elif armor_choose == "2":
+    user_armor = mid_armor
+    equipment_condition = True
+elif armor_choose == "3":
+    user_armor = complete_armor
+    equipment_condition = True
+else: 
+    print("Vous n'avez pas choisi d'armure")
 
-# Display equipment for John
-if user_armor_john and user_weapon_john:
-    print(f"John a une {user_weapon_john.name} qui met {user_weapon_john.damage} de points de dégât")
-    print(f"John a une {user_armor_john.name} qui a {user_armor_john.defense} de points de défense")
+if weapon_choose == "1":
+    user_weapon = sword_weapon
+    equipment_condition = True
+elif weapon_choose == "2":
+    user_weapon = pickaxe_weapon
+    equipment_condition = True
+elif weapon_choose == "3":
+    user_weapon = fist_weapon
+    equipment_condition = True
+else: 
+    print("Vous n'avez pas choisi d'arme")
 
-# Initialize characters with their respective equipment
-jane = Character("Jane", user_armor_jane, user_weapon_jane, 120)
-john = Character("John", user_armor_john, user_weapon_john, 100)
 
-# Perform an attack
-john.attack(jane)
 
-# Display results
+if equipment_condition:
+    print(f"Vous avez une {user_weapon.name} et elle met {user_weapon.damage} de points de dégât")
+    print(f"Vous avez une {user_armor.name} et elle a {user_armor.defense} de points de défense")
+
+
+
+
+jane = Character("Jane", user_armor, user_weapon, 120)
+john = Character("John", user_armor, user_weapon, 100, 'Barbare')
+
+Barbare.attack(jane)
+
 print("Results: ")
-print(john.name, john.hp, "HP et", john.armor.defense, "de defense")
-print(jane.name, jane.hp, "HP et", jane.armor.defense, "de defense")
+print(john.name, john.hp, "HP et", john.armor_defense, "de defense")
+print(jane.name, jane.hp, "HP et", jane.armor_defense,"de defense")
+print(Barbare.name, Barbare.hp, "HP et", Barbare.armor_defense,"de defense")
 print("------------------")
+
