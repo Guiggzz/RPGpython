@@ -41,4 +41,5 @@ class Character:
             else:
                 other.hp -= 20
                 print(f'{self.name} attaque {other.name} avec ses{self.weapon_name}')
+                e
 
