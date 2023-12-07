@@ -20,7 +20,29 @@ class Character:
         return f"Weapon: {self.weapon_name}, Damage: {self.weapon_damage}"
     
     def attack(self, other):
-        if self.weapon_name == 'Epée':
+        if self.name == 'Barbare':
+            if self.weapon_name == 'Epée':
+                if other.armor_defense >= 60:
+                    other.armor_defense -= 60
+                    print(f'{self.name} attaque deux fois {other.name} avec une {self.weapon_name}')
+                else:
+                    other.hp -= 60
+                    print(f'{self.name} attaque deux fois {other.name} avec une {self.weapon_name}')
+            elif self.weapon_name == 'Pioche':
+                if other.armor_defense >= 50:
+                    other.armor_defense -= 50
+                    print(f'{self.name} attaque deux fois {other.name} avec une {self.weapon_name}')
+                else:
+                    other.hp -= 50
+                    print(f'{self.name} attaque deux fois {other.name} avec une {self.weapon_name}')
+            elif self.weapon_name == 'Coup de poing':
+                if other.armor_defense >= 40:
+                    other.armor_defense -= 40
+                    print(f'{self.name} attaque deux fois {other.name} avec ses {self.weapon_name}')
+            else:
+                other.hp -= 40
+                print(f'{self.name} attaque deux fois {other.name} avec ses{self.weapon_name}')
+        elif self.weapon_name == 'Epée':
             if other.armor_defense >= 30:
                 other.armor_defense -= 30
                 print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
@@ -41,5 +63,6 @@ class Character:
             else:
                 other.hp -= 20
                 print(f'{self.name} attaque {other.name} avec ses{self.weapon_name}')
-                e
+                ee
+        
 

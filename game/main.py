@@ -49,9 +49,10 @@ jane = Character("Jane", user_armor, user_weapon, 120)
 john = Character("John", user_armor, user_weapon, 100)
 Barbare = Character("Barbare", user_armor, user_weapon, 100)
 
-jane.attack(john)
+Barbare.attack(jane)
+
 print("Results: ")
 print(john.name, john.hp, "HP et", john.armor_defense, "de defense")
 print(jane.name, jane.hp, "HP et", jane.armor_defense,"de defense")
+print(Barbare.name, Barbare.hp, "HP et", Barbare.armor_defense,"de defense")
 print("------------------")
-
