@@ -5,4 +5,4 @@ class Barbian:
         self.name = name
         self.hp = hp
         self.character_type = character_type
-        le zizi
+
