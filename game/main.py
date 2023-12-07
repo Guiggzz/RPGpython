@@ -68,4 +68,4 @@ john.attack(jane)
 print("Results: ")
 print(john.name, john.hp, "HP et", john.armor.defense, "de defense")
 print(jane.name, jane.hp, "HP et", jane.armor.defense, "de defense")
-print("------------------")
+print("------------------") le sexe
