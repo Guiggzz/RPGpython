@@ -64,3 +64,7 @@ print(jane.name, jane.hp, "HP et", jane.armor_defense,"de defense")
 print(Barbare.name, Barbare.hp, "HP et", Barbare.armor_defense,"de defense")
 print("------------------")
 
+
+
+
+le zizi
