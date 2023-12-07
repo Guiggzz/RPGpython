@@ -22,4 +22,8 @@ class Character:
     def attack(self, other):
         if self.weapon_name == 'Epée':
             other.hp -= 30
+        elif self.weapon_name == 'Pioche':
+            other.hp -= 25
+        elif self.weapon_name == 'Coup de poing':
+            other.hp -= 20
     

@@ -48,8 +48,9 @@ if equipment_condition:
 jane = Character("Jane", user_armor, user_weapon, 120)
 john = Character("John", user_armor, user_weapon, 100)
 
-john.attack(jane)
+jane.attack(john)
 print("Results: ")
 print(john.name, john.hp, "HP")
 print(jane.name, jane.hp, "HP")
-input("------------------")
+print("------------------")
+
