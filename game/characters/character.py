@@ -23,16 +23,22 @@ class Character:
         if self.weapon_name == 'Epée':
             if other.armor_defense >= 30:
                 other.armor_defense -= 30
+                print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
             else:
                 other.hp -= 30
+                print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
         elif self.weapon_name == 'Pioche':
             if other.armor_defense >= 25:
                 other.armor_defense -= 25
+                print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
             else:
                 other.hp -= 25
+                print(f'{self.name} attaque {other.name} avec une {self.weapon_name}')
         elif self.weapon_name == 'Coup de poing':
             if other.armor_defense >= 20:
                 other.armor_defense -= 20
+                print(f'{self.name} attaque {other.name} avec ses {self.weapon_name}')
             else:
                 other.hp -= 20
+                print(f'{self.name} attaque {other.name} avec ses{self.weapon_name}')
 
