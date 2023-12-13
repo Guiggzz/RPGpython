@@ -1,7 +1,7 @@
 from characters.character import Character
 from gears.armor import armor
 from gears.weapon import Weapon
-from characters.Barbarian import Barbarian
+from characters.barbarian import Barbarian
 from characters.wizard import Wizard
 
 little_armor = armor('armure partielle', 50)
