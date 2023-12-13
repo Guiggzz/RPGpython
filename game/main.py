@@ -2,6 +2,7 @@ from characters.character import Character
 from gears.armor import armor
 from gears.weapon import Weapon
 from characters.Barbarian import Barbarian
+from characters.wizard import Wizard
 
 little_armor = armor('armure partielle', 50)
 mid_armor = armor('armure moyenne', 75)
@@ -42,7 +43,13 @@ elif armor_choose == "3":
 else: 
     armor_condition = False
 
-jane = Barbarian("Jane", user_armor, user_weapon, 120, user_armor.defense)
+type_choose = input("Choississez le type de votre personnage 1 : Barbarre ou 2 : Sorcier")
+
+if type_choose == "1":
+     jane = Barbarian("Jane", user_armor, user_weapon, 120, user_armor.defense)
+else:
+     jane = Wizard("Jane", user_armor, user_weapon, 120, user_armor.defense)
+
 john = Character("John", mid_armor, pickaxe_weapon, 100, mid_armor.defense)
 attack_type = True
 

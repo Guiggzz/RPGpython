@@ -1,5 +1,6 @@
 from gears.armor import armor
 from gears.weapon import Weapon
+from characters.character import Character
 
 class Barbarian:
     def __init__(self, name, armor: armor = armor('Armure legere'), weapon: Weapon = Weapon('Le saint batôn de berger'), hp: float = 100, defense: float = 25):
@@ -11,8 +12,4 @@ class Barbarian:
 
     def attack(self, other):
         for _ in range(2):
-            if other.armor.defense >= self.weapon.damage:
-                other.armor.defense -= self.weapon.damage
-            else:
-                other.hp -= self.weapon.damage - other.armor.defense
-                other.armor.defense = 0
+            Character.attack(self, other)
