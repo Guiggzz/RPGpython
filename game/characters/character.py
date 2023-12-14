@@ -1,8 +1,8 @@
-from gears.armor import armor
+from gears.armor import Armor
 from gears.weapon import Weapon
 
 class Character:
-    def __init__(self, name, armor: armor = armor('Armure legere'), weapon: Weapon = Weapon('Le saint batôn de berger'), hp: float = 100, defense: float = 50):
+    def __init__(self, name, armor: Armor = Armor('Armure legere'), weapon: Weapon = Weapon('Le saint batôn de berger'), hp: float = 100, defense: float = 50):
         self.name = name
         self.armor = armor
         self.weapon = weapon
