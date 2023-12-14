@@ -1,22 +1,26 @@
-from gears.armor import armor
-from gears.weapon import Weapon
 from characters.character import Character
+from gears.spell import Spell
 
-class Wizard : 
-    def __init__(self, name, armor: armor = armor('Armure legere'), hp: float = 75, defense: float = 25, weapon: Weapon = Weapon('Le saint batôn de berger'), damage = 20):
-        self.name = name
-        self.armor = armor
-        self.weapon = weapon
-        self.hp = hp
-        self.defense = defense
-        self.damage = damage
-
+class Wizard(Character):
+    def __init__(self, name, armor, spell:Spell, hp=75, defense=25, weapon=None, damage=20, mana:float=100):
+        super().__init__(name, armor, weapon, hp, defense)
+        self.spell = spell
+        self.mana = mana 
     def attack(self, other):
-        Character.attack(self, other)
-
-class spell:
-    def __init__(self,name, damage, mana_cost):
-        self.name = name
-        self.damage = damage
-        self.mana = mana_cost
-    
+        if self.mana >= self.spell.mana:
+            if other.armor.defense >= self.spell.damage:
+                other.armor.defense -= self.spell.damage
+                self.mana -= self.spell.mana
+            else:
+                other.hp -= self.spell.damage - other.armor.defense
+                other.armor.defense = 0
+                self.mana -= self.spell.mana
+        else : 
+            self.mana += 15
+            if other.armor.defense >= self.weapon.damage:
+                other.armor.defense -= self.weapon.damage
+                print('Pas asser de mana, vous attaquer donc avec vos coup de poing')
+            else:
+                other.hp -= self.weapon.damage - other.armor.defense
+                other.armor.defense = 0
+                print('Pas asser de mana, vous attaquer donc avec vos coup de poing')
