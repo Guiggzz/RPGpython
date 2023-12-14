@@ -4,6 +4,7 @@ from gears.weapon import Weapon
 from characters.barbarian import Barbarian
 from characters.wizard import Wizard
 from gears.spell import Spell
+from arena import Arena
 import inquirer
 
 fireball_spell = Spell('Boule de feu', 50, 60)
@@ -59,7 +60,8 @@ armor_condition = False
 weapon_condition = False
 fight_condition = True
 while fight_condition == True:
-        First_character = inquirer.prompt(questions_character)
+        First_character_response = inquirer.prompt(questions_character)
+        First_character = First_character_response['choice_character']
         answers = inquirer.prompt(questions_fighter)
         if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
             if answers['choice_fighter'] == "Barbare (Attaque 2 fois)":
@@ -116,7 +118,8 @@ while fight_condition == True:
                     armor_condition = False
 
                 First_fighter = Wizard(First_character, user_armor, user_spell, 75, user_armor.defense, fist_weapon, 20)
-        Second_character = inquirer.prompt(questions_character)
+        Second_character_response = inquirer.prompt(questions_character)
+        Second_character = Second_character_response['choice_character']
         answers = inquirer.prompt(questions_fighter)
         attack_type = True
         if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
@@ -173,7 +176,7 @@ while fight_condition == True:
                 else:
                     armor_condition = False
 
-                Second_fighter = Wizard(Second_character, enemie_armor, enemie_spell, 75, enemie_armor.defense, enemie_weapon, 20)
+                Second_fighter = Wizard(Second_character, enemie_armor, enemie_spell, 75, enemie_armor.defense, fist_weapon, 20)
             if isinstance(First_fighter, Barbarian):
                 if armor_condition and weapon_condition:
                         print(f'\nVous avez choisi : \n{user_weapon.name} pour attaquer et une {user_armor.name} qui a {user_armor.defense} de défense pour vous protéger')
@@ -201,8 +204,8 @@ while fight_condition == True:
                     if Second_fighter.hp > 0:
                         print("-------------------------------")
                         print("Results: ")
-                        print(Second_fighter.name, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
-                        print(First_fighter.name, 'à', First_fighter.hp, "HP et", First_fighter.armor.defense, 'de defense')
+                        print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
+                        print(First_character, 'a', First_fighter.hp, "PV et", First_fighter.armor.defense, 'de défense')
                         if isinstance(First_fighter, Wizard): 
                             First_fighter.print_mana()
                         print("-------------------------------")
@@ -213,11 +216,11 @@ while fight_condition == True:
                 elif answers['choice_fight'] == 'Non':
                     print("--------------------------------")
                     print("Résultats finaux : ")
-                    print(Second_fighter[.name], "a", Second_fighter.hp, "PV et",  Second_fighter.armor.defense, 'de défense')
-                    print(First_fighter.name, 'a', First_fighter.hp, "PV et", First_fighter.armor.defense, 'de défense')
+                    print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
+                    print(First_character, 'a', First_fighter.hp, "PV et", First_fighter.armor.defense, 'de défense')
                     print("Results final : ")
-                    print(Second_fighter.name, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
-                    print(First_fighter.name, 'à', First_fighter.hp, "HP et", First_fighter.armor.defense, 'de defense')
+                    print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
+                    print(First_character, 'à', First_fighter.hp, "HP et", First_fighter.armor.defense, 'de defense')
                     if isinstance(First_fighter, Wizard): 
                             First_fighter.print_mana()
                     print("--------------------------------")
@@ -227,6 +230,8 @@ while fight_condition == True:
                         print("Vous n'avez pas choisi d'action valide")
                         attack_type = False
                         fight_condition = False
+                a = Arena(First_fighter, Second_fighter)
+                a.fight(First_fighter , Second_fighter)
         else:
             print("Au revoir !")
             break
