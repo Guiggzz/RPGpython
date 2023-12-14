@@ -24,3 +24,6 @@ class Wizard(Character):
                 other.hp -= self.weapon.damage - other.armor.defense
                 other.armor.defense = 0
                 print('Pas asser de mana, vous attaquer donc avec vos coup de poing')
+
+    def print_mana(self):
+        print(f'Vous avez {self.mana} mana')
