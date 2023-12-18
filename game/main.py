@@ -19,6 +19,12 @@ sword_weapon = Weapon('Épée', 30)
 pickaxe_weapon = Weapon('Pioche', 25)
 fist_weapon = Weapon('Coup de poing', 20)
 
+questions_mode = [
+    inquirer.List('choice_mode',
+                  message="Sélectionnez un mode de jeu ",
+                  choices=['Histoire (vous vous battez contre des monstres)', 'Arena (vous etes en duel)', 'Punching-Ball (vous etes le seul a attaquer)', 'Quitter'],
+              ),
+]
 questions_character = [
     inquirer.List('choice_character',
                   message="Sélectionnez un character ",
@@ -59,182 +65,162 @@ questions_spell = [
 armor_condition = False
 weapon_condition = False
 fight_condition = True
-while fight_condition == True:
-        First_character_response = inquirer.prompt(questions_character)
-        First_character = First_character_response['choice_character']
-        answers = inquirer.prompt(questions_fighter)
-        if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
-            if answers['choice_fighter'] == "Barbare (Attaque 2 fois)":
-                answers = inquirer.prompt(questions_weapon)
-                user_weapon = None
-                weapon_condition = True
-                if answers['choice_weapon'] == 'Épée (30 dps)':
-                    user_weapon = sword_weapon
-                elif answers['choice_weapon'] == 'Pioche (25 dps)':
-                    user_weapon = pickaxe_weapon
-                elif answers['choice_weapon'] == 'Coup de poing (20 dps)':
-                    user_weapon = fist_weapon
+answers = inquirer.prompt(questions_mode)
+if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
+    while fight_condition == True:
+            First_character_response = inquirer.prompt(questions_character)
+            First_character = First_character_response['choice_character']
+            answers = inquirer.prompt(questions_fighter)
+            if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
+                if answers['choice_fighter'] == "Barbare (Attaque 2 fois)":
+                    answers = inquirer.prompt(questions_weapon)
+                    user_weapon = None
+                    weapon_condition = True
+                    First_character_armor = None
+                    if answers['choice_weapon'] == 'Épée (30 dps)':
+                        user_weapon = sword_weapon
+                    elif answers['choice_weapon'] == 'Pioche (25 dps)':
+                        user_weapon = pickaxe_weapon
+                    elif answers['choice_weapon'] == 'Coup de poing (20 dps)':
+                        user_weapon = fist_weapon
+                    First_fighter = Barbarian(First_character, First_character_armor, user_weapon, 120)
+
                 else:
-                    weapon_condition = False
+                    answers = inquirer.prompt(questions_spell)
+                    user_spell = None
+                    weapon_condition = True
+                    First_character_armor = None
+                    if answers['choice_spell'] == 'Boule de feu (50 dps)':
+                        user_spell = fireball_spell
+                    elif answers['choice_spell'] == 'Tonerre (45 dps)':
+                        user_spell = lightning_spell
+                    elif answers['choice_spell'] == "Mur d'air (30 dps)":
+                        user_spell = windwall_spell
+                    First_fighter = Wizard(First_character, First_character_armor, user_spell, 75, fist_weapon, 20)
+            Second_character_response = inquirer.prompt(questions_character)
+            Second_character = Second_character_response['choice_character']
+            answers = inquirer.prompt(questions_fighter)
+            attack_type = True
+            if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
+                if answers['choice_fighter'] == "Barbare (Attaque 2 fois)":
+                    answers = inquirer.prompt(questions_weapon)
+                    user_weapon = None
+                    weapon_condition = True
+                    if answers['choice_weapon'] == 'Épée (30 dps)':
+                        user_weapon = sword_weapon
+                    elif answers['choice_weapon'] == 'Pioche (25 dps)':
+                        user_weapon = pickaxe_weapon
+                    elif answers['choice_weapon'] == 'Coup de poing (20 dps)':
+                        user_weapon = fist_weapon
+                    else:
+                        weapon_condition = False
 
-                answers = inquirer.prompt(questions_armor)
-                user_armor = None
-                armor_condition = True
+                    answers = inquirer.prompt(questions_armor)
+                    user_armor = None
+                    armor_condition = True
 
-                if answers['choice_armor'] == "Armure légère (50 de défense)":
-                    user_armor = little_armor
-                elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
-                    user_armor = mid_armor
-                elif answers['choice_armor'] == "Armure complète (100 de défense)":
-                    user_armor = complete_armor
+                    if answers['choice_armor'] == "Armure légère (50 de défense)":
+                        user_armor = little_armor
+                    elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
+                        user_armor = mid_armor
+                    elif answers['choice_armor'] == "Armure complète (100 de défense)":
+                        user_armor = complete_armor
+                    else:
+                        armor_condition = False
+
+                    Second_fighter = Barbarian(Second_character, user_armor, user_armor, 120)
+
                 else:
-                    armor_condition = False
+                    answers = inquirer.prompt(questions_spell)
+                    user_spell = None
+                    weapon_condition = True
+                    if answers['choice_spell'] == 'Boule de feu (50 dps)':
+                        user_spell = fireball_spell
+                    elif answers['choice_spell'] == 'Tonerre (45 dps)':
+                        user_spell = lightning_spell
+                    elif answers['choice_spell'] == "Mur d'air (30 dps)":
+                        user_spell = windwall_spell
+                    else:
+                        weapon_condition = False
+                    answers = inquirer.prompt(questions_armor)
+                    user_armor = None
+                    armor_condition = True
 
-                First_fighter = Barbarian(First_character, user_armor, user_weapon, 120, user_armor.defense)
+                    if answers['choice_armor'] == "Armure légère (50 de défense)":
+                        user_armor = little_armor
+                    elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
+                        user_armor = mid_armor
+                    elif answers['choice_armor'] == "Armure complète (100 de défense)":
+                        user_armor = complete_armor
+                    else:
+                        armor_condition = False
 
-            else:
-                answers = inquirer.prompt(questions_spell)
-                user_spell = None
-                weapon_condition = True
-                if answers['choice_spell'] == 'Boule de feu (50 dps)':
-                    user_spell = fireball_spell
-                elif answers['choice_spell'] == 'Tonerre (45 dps)':
-                    user_spell = lightning_spell
-                elif answers['choice_spell'] == "Mur d'air (30 dps)":
-                    user_spell = windwall_spell
-                else:
-                    weapon_condition = False
-                answers = inquirer.prompt(questions_armor)
-                user_armor = None
-                armor_condition = True
-
-                if answers['choice_armor'] == "Armure légère (50 de défense)":
-                    user_armor = little_armor
-                elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
-                    user_armor = mid_armor
-                elif answers['choice_armor'] == "Armure complète (100 de défense)":
-                    user_armor = complete_armor
-                else:
-                    armor_condition = False
-
-                First_fighter = Wizard(First_character, user_armor, user_spell, 75, user_armor.defense, fist_weapon, 20)
-        Second_character_response = inquirer.prompt(questions_character)
-        Second_character = Second_character_response['choice_character']
-        answers = inquirer.prompt(questions_fighter)
-        attack_type = True
-        if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
-            if answers['choice_fighter'] == "Barbare (Attaque 2 fois)":
-                answers = inquirer.prompt(questions_weapon)
-                enemie_weapon = None
-                weapon_condition = True
-                if answers['choice_weapon'] == 'Épée (30 dps)':
-                    enemie_weapon = sword_weapon
-                elif answers['choice_weapon'] == 'Pioche (25 dps)':
-                    enemie_weapon = pickaxe_weapon
-                elif answers['choice_weapon'] == 'Coup de poing (20 dps)':
-                    enemie_weapon = fist_weapon
-                else:
-                    weapon_condition = False
-
-                answers = inquirer.prompt(questions_armor)
-                enemie_armor = None
-                armor_condition = True
-
-                if answers['choice_armor'] == "Armure légère (50 de défense)":
-                    enemie_armor = little_armor
-                elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
-                    enemie_armor = mid_armor
-                elif answers['choice_armor'] == "Armure complète (100 de défense)":
-                    enemie_armor = complete_armor
-                else:
-                    armor_condition = False
-
-                Second_fighter = Barbarian(Second_character, enemie_armor, enemie_weapon, 120, enemie_armor.defense)
-
-            else:
-                answers = inquirer.prompt(questions_spell)
-                enemie_spell = None
-                weapon_condition = True
-                if answers['choice_spell'] == 'Boule de feu (50 dps)':
-                    enemie_spell = fireball_spell
-                elif answers['choice_spell'] == 'Tonerre (45 dps)':
-                    enemie_spell = lightning_spell
-                elif answers['choice_spell'] == "Mur d'air (30 dps)":
-                    enemie_spell = windwall_spell
-                else:
-                    weapon_condition = False
-                answers = inquirer.prompt(questions_armor)
-                enemie_armor = None
-                armor_condition = True
-
-                if answers['choice_armor'] == "Armure légère (50 de défense)":
-                    enemie_armor = little_armor
-                elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
-                    enemie_armor = mid_armor
-                elif answers['choice_armor'] == "Armure complète (100 de défense)":
-                    enemie_armor = complete_armor
-                else:
-                    armor_condition = False
-
-                Second_fighter = Wizard(Second_character, enemie_armor, enemie_spell, 75, enemie_armor.defense, fist_weapon, 20)
-            if isinstance(First_fighter, Barbarian):
-                if armor_condition and weapon_condition:
-                        print(f'\nVous avez choisi : \n{user_weapon.name} pour attaquer et une {user_armor.name} qui a {user_armor.defense} de défense pour vous protéger')
-                        print(f"\nVotre {user_weapon.name} inflige : \n{user_weapon.damage} de dégâts et l'{user_armor.name} de votre adversaire a {Second_fighter.defense} de défense")
-                else:
-                    print("Vous n'avez pas choisi d'équipement valide")
-            else:
-                    if isinstance(First_fighter, Wizard): 
-                        print(f'\nVous avez : \n un bâton qui inflige 20 de dégâts, un sort {user_spell.name} qui inflige {user_spell.damage} de dégâts, une {user_armor.name} qui a {user_armor.defense} de défense pour vous protéger')
-                        print(f"\nVotre adversaire a {Second_fighter.hp} de vie et {Second_fighter.defense} de défense")
+                    Second_fighter = Wizard(Second_character, user_armor, user_spell, 75, fist_weapon, 20)
+                if isinstance(First_fighter, Barbarian):
+                    if armor_condition and weapon_condition:
+                            print(f'\nVous avez choisi : \n{First_fighter.weapon.name} pour attaquer')
+                            print(f"\nVotre {First_fighter.weapon.name} inflige : \n{First_fighter.weapon.damage} de dégâts et l'{Second_fighter.armor.name} de votre adversaire a {Second_fighter.armor.defense} de défense.")
                     else:
                         print("Vous n'avez pas choisi d'équipement valide")
-
-
-            if isinstance(First_fighter, Barbarian): 
-                print("\nVous avez la classe Barbare. Vous attaquez deux fois d'affilée !")
-            elif isinstance(First_fighter, Wizard): 
-                print("\nVous avez la classe Sorcier. Vous avez des sorts.")
-                
-            attack_type = True
-            while attack_type == True:
-                answers = inquirer.prompt(questions_fight)
-                if answers['choice_fight'] == 'Oui':
-                    First_fighter.attack(Second_fighter)
-                    if Second_fighter.hp > 0:
-                        print("-------------------------------")
-                        print("Results: ")
-                        print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
-                        print(First_character, 'a', First_fighter.hp, "PV et", First_fighter.armor.defense, 'de défense')
+                else:
                         if isinstance(First_fighter, Wizard): 
-                            First_fighter.print_mana()
-                        print("-------------------------------")
-                    else : 
-                        print("Vous avez vaincu votre adversaire (il est mort)")
+                            print(f'\nVous avez : \n un bâton qui inflige 20 de dégâts, un sort {First_fighter.spell.name} qui inflige {First_fighter.spell.damage} de dégâts.')
+                            print(f"\nVotre adversaire a {Second_fighter.hp} de vie et {Second_fighter.armor.defense} de défense")
+                        else:
+                            print("Vous n'avez pas choisi d'équipement valide")
+
+
+                if isinstance(First_fighter, Barbarian): 
+                    print("\nVous avez la classe Barbare. Vous attaquez deux fois d'affilée !")
+                elif isinstance(First_fighter, Wizard): 
+                    print("\nVous avez la classe Sorcier. Vous avez des sorts.")
+                    
+                print("-------------------------------")
+                print("Results: ")
+                print(First_character, 'a', First_fighter.hp, "HP")
+                print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
+                if isinstance(First_fighter, Wizard): 
+                    First_fighter.print_mana()
+                print("-------------------------------")
+                attack_type = True
+                while attack_type == True:
+                    answers = inquirer.prompt(questions_fight)
+                    if answers['choice_fight'] == 'Oui':
+                        First_fighter.attack(Second_fighter)
+                        if Second_fighter.hp > 0:
+                            print("-------------------------------")
+                            print("Results: ")
+                            print(First_character, 'a', First_fighter.hp, "HP")
+                            print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
+                            if isinstance(First_fighter, Wizard): 
+                                First_fighter.print_mana()
+                            print("-------------------------------")
+                        else : 
+                            print("Vous avez vaincu votre adversaire (il est mort)")
+                            attack_type = False
+                            fight_condition = False
+                    elif answers['choice_fight'] == 'Non':
+                        print("--------------------------------")
+                        print("Résultats finaux : ")
+                        print(First_character, 'a', First_fighter.hp, "HP")
+                        print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
+                        if isinstance(First_fighter, Wizard): 
+                                First_fighter.print_mana()
+                        print("--------------------------------")
                         attack_type = False
                         fight_condition = False
-                elif answers['choice_fight'] == 'Non':
-                    print("--------------------------------")
-                    print("Résultats finaux : ")
-                    print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
-                    print(First_character, 'a', First_fighter.hp, "PV et", First_fighter.armor.defense, 'de défense')
-                    print("Results final : ")
-                    print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
-                    print(First_character, 'à', First_fighter.hp, "HP et", First_fighter.armor.defense, 'de defense')
-                    if isinstance(First_fighter, Wizard): 
-                            First_fighter.print_mana()
-                    print("--------------------------------")
-                    attack_type = False
-                    fight_condition = False
-                else :
-                        print("Vous n'avez pas choisi d'action valide")
-                        attack_type = False
-                        fight_condition = False
-                a = Arena(First_fighter, Second_fighter)
-                a.fight(First_fighter , Second_fighter)
-        else:
-            print("Au revoir !")
-            break
-
-
-
+                    else :
+                            print("Vous n'avez pas choisi d'action valide")
+                            attack_type = False
+                            fight_condition = False
+                    # a = Arena(First_fighter, Second_fighter)
+                    # a.fight(First_fighter , Second_fighter)
+            else:
+                print("Au revoir !")
+                break
+elif answers['choice_mode'] == 'Arena (vous etes en duel)':
+    print("Vous avez choisi la classe arena !")
+elif answers['choice_mode'] == 'Histoire (vous vous battez contre des monstres)':
+    print("Vous avez choisi la classe histoire !")
+elif answers['choice_mode'] == 'Quitter':
+    print("Vous n'avez pas choisi de mode !")

@@ -1,9 +1,12 @@
-from characters.character import Character
+# from characters.character import Character
 from gears.spell import Spell
 
-class Wizard(Character):
-    def __init__(self, name, armor, spell:Spell, hp=75, defense=25, weapon=None, damage=20, mana:float=100):
-        super().__init__(name, armor, weapon, hp, defense)
+class Wizard:
+    def __init__(self, name, armor, spell:Spell, hp=75, weapon=None, mana:float=100):
+        self.name = name
+        self.armor = armor
+        self.weapon = weapon
+        self.hp = hp
         self.spell = spell
         self.mana = mana 
     def attack(self, other):
