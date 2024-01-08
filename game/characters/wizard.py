@@ -19,6 +19,8 @@ class Wizard:
                     other.hp -= self.spell.damage - other.armor.defense
                     other.armor.defense = 0
                     self.mana -= self.spell.mana
+            else:
+                other.hp -= self.spell.damage
         else : 
             self.mana += 15
             if other.armor is not None:
@@ -29,6 +31,9 @@ class Wizard:
                     other.hp -= self.weapon.damage - other.armor.defense
                     other.armor.defense = 0
                     print('Pas asser de mana, vous attaquer donc avec vos coup de poing')
+            else:
+                print("test")
+                other.hp -= self.weapon.damage
 
     def print_mana(self):
         print(f'Vous avez {self.mana} mana')

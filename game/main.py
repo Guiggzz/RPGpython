@@ -8,6 +8,7 @@ from characters.wizard import Wizard
 from gears.spell import Spell
 from arena import Arena
 import inquirer
+import subprocess
 
 # Initialisation des sorts, armures et armes
 
@@ -110,7 +111,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                         user_spell = lightning_spell
                     elif answers['choice_spell'] == "Mur d'air (30 dps)":
                         user_spell = windwall_spell
-                    First_fighter = Wizard(First_character, First_character_armor, user_spell, 75, fist_weapon, 20)
+                    First_fighter = Wizard(First_character, First_character_armor, user_spell, 75, fist_weapon, 60)
             Second_character_response = inquirer.prompt(questions_character)
             Second_character = Second_character_response['choice_character']
             answers = inquirer.prompt(questions_fighter)
@@ -169,7 +170,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     else:
                         armor_condition = False
 
-                    Second_fighter = Wizard(Second_character, user_armor, user_spell, 75, fist_weapon, 20)
+                    Second_fighter = Wizard(Second_character, user_armor, user_spell, 75, fist_weapon, 60)
                 if isinstance(First_fighter, Barbarian):
                     if armor_condition and weapon_condition:
                             print(f'\nVous avez choisi : \n{First_fighter.weapon.name} pour attaquer')
@@ -271,7 +272,7 @@ elif answers['choice_mode'] == 'Arena (vous etes en duel)':
             elif spell_response['choice_spell'] == "Mur d'air (30 dps)":
                 user_spell = windwall_spell
 
-            player = Wizard(player_character, None, user_spell, 75, fist_weapon, 20)
+            player = Wizard(player_character, None, user_spell, 75, fist_weapon, 60)
 
 
     bot_character = "Bot"
