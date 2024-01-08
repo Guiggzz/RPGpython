@@ -12,14 +12,14 @@ class Arena:
         self.second_character = second_character
 
     def fight(self):
+        self.print_mini_bilan()
         while self.first_character.hp > 0 and self.second_character.hp > 0:
             self.first_character.attack(self.second_character)
+            self.print_mini_bilan()            
+            self.second_character.attack(self.first_character)
             self.print_mini_bilan()
             if self.second_character.hp <= 0:
                 break
-            
-            self.second_character.attack(self.first_character)
-            self.print_mini_bilan()
 
         self.print_final_bilan()
 
