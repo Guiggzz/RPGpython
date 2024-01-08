@@ -15,26 +15,27 @@ class Arena:
         self.print_mini_bilan()
         while self.first_character.hp > 0 and self.second_character.hp > 0:
             self.first_character.attack(self.second_character)
-            self.print_mini_bilan()            
+            self.print_mini_bilan()          
+            if self.second_character.hp <= 0:
+                break  
             self.second_character.attack(self.first_character)
             self.print_mini_bilan()
-            if self.second_character.hp <= 0:
-                break
+
 
         self.print_final_bilan()
 
     def print_mini_bilan(self):
-        if self.first_character.hp >= 0 and self.second_character.hp >= 0:
+        if self.first_character.hp > 0 and self.second_character.hp > 0:
             print("\nMini-Bilan :")
             print(f"{self.first_character.name} a {self.first_character.hp} HP restants.")
             print(f"{self.second_character.name} a {self.second_character.hp} HP restants.")
             print("-----------------------------")
-        elif self.first_character.hp <=0 :
+        elif self.first_character.hp <0 :
             print("\nMini-Bilan :")
             print(f"{self.first_character.name} a 0 HP restants.")
             print(f"{self.second_character.name} a {self.second_character.hp} HP restants.")
             print("-----------------------------")
-        elif self.second_character.hp <=0 :
+        elif self.second_character.hp <0 :
             print("\nMini-Bilan :")
             print(f"{self.first_character.name} a {self.first_character.hp} HP restants.")
             print(f"{self.second_character.name} a 0 HP restants.")
@@ -48,5 +49,3 @@ class Arena:
         elif self.second_character.hp <= 0:
             print(f"{self.second_character.name} est vaincu !")
         print("-----------------------------")
-
-
