@@ -10,8 +10,11 @@ class Character:
         self.defense = self.armor.defense
 
     def attack(self, other):
-        if other.armor.defense >= self.weapon.damage:
-            other.armor.defense -= self.weapon.damage
+        if other.armor is not None:
+            if other.armor.defense >= self.weapon.damage:
+                other.armor.defense -= self.weapon.damage
+            else:
+                other.hp -= self.weapon.damage - other.armor.defense
+                other.armor.defense = 0
         else:
-            other.hp -= self.weapon.damage - other.armor.defense
-            other.armor.defense = 0
+            other.hp -= self.weapon.damage
