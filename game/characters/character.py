@@ -2,12 +2,12 @@ from gears.armor import Armor
 from gears.weapon import Weapon
 
 class Character:
-    def __init__(self, name, armor: Armor = Armor('armure partielle'), weapon: Weapon = Weapon('Le saint batôn de berger'), hp: float = 100):
+    def __init__(self, name, armor=None, weapon=None, hp=100):
         self.name = name
-        self.armor = armor
-        self.weapon = weapon
+        self.armor = armor if armor else Armor('armure partielle')
+        self.weapon = weapon if weapon else Weapon('Le saint batôn de berger')
         self.hp = hp
-        self.defense = armor.defense
+        self.defense = self.armor.defense
 
     def attack(self, other):
         if other.armor.defense >= self.weapon.damage:
@@ -15,4 +15,3 @@ class Character:
         else:
             other.hp -= self.weapon.damage - other.armor.defense
             other.armor.defense = 0
-            

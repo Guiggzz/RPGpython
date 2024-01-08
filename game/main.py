@@ -1,3 +1,5 @@
+# Import des modules
+
 from characters.character import Character
 from gears.armor import Armor
 from gears.weapon import Weapon
@@ -6,6 +8,8 @@ from characters.wizard import Wizard
 from gears.spell import Spell
 from arena import Arena
 import inquirer
+
+# Initialisation des sorts, armures et armes
 
 fireball_spell = Spell('Boule de feu', 50, 60)
 lightning_spell = Spell('Tonerre', 45, 50)
@@ -18,6 +22,8 @@ complete_armor = Armor('armure complète', 100)
 sword_weapon = Weapon('Épée', 30)
 pickaxe_weapon = Weapon('Pioche', 25)
 fist_weapon = Weapon('Coup de poing', 20)
+
+# Définition des questions pour les différents modes et choix de jeu
 
 questions_mode = [
     inquirer.List('choice_mode',
@@ -62,10 +68,18 @@ questions_spell = [
               ),
 ]
 
+# Initialisation des variables pour les conditions
+
 armor_condition = False
 weapon_condition = False
 fight_condition = True
+
+# Demande à l'utilisateur de choisir un mode de jeu
+
 answers = inquirer.prompt(questions_mode)
+
+# Vérifie le choix de l'utilisateur pour le mode "Punching-Ball"
+
 if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
     while fight_condition == True:
             First_character_response = inquirer.prompt(questions_character)
@@ -176,8 +190,8 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     print("\nVous avez la classe Sorcier. Vous avez des sorts.")
                     
                 print("-------------------------------")
-                print("Results: ")
-                print(First_character, 'a', First_fighter.hp, "HP")
+                print("Bilan: ")
+                print(First_character, 'à', First_fighter.hp, "HP")
                 print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
                 if isinstance(First_fighter, Wizard): 
                     First_fighter.print_mana()
@@ -189,8 +203,8 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                         First_fighter.attack(Second_fighter)
                         if Second_fighter.hp > 0:
                             print("-------------------------------")
-                            print("Results: ")
-                            print(First_character, 'a', First_fighter.hp, "HP")
+                            print("Bilan: ")
+                            print(First_character, 'à', First_fighter.hp, "HP")
                             print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
                             if isinstance(First_fighter, Wizard): 
                                 First_fighter.print_mana()
@@ -202,7 +216,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     elif answers['choice_fight'] == 'Non':
                         print("--------------------------------")
                         print("Résultats finaux : ")
-                        print(First_character, 'a', First_fighter.hp, "HP")
+                        print(First_character, 'à', First_fighter.hp, "HP")
                         print(Second_character, "à", Second_fighter.hp, "HP et",  Second_fighter.armor.defense, 'de defense')
                         if isinstance(First_fighter, Wizard): 
                                 First_fighter.print_mana()
@@ -213,11 +227,63 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                             print("Vous n'avez pas choisi d'action valide")
                             attack_type = False
                             fight_condition = False
-                    # a = Arena(First_fighter, Second_fighter)
-                    # a.fight(First_fighter , Second_fighter)
+
             else:
                 print("Au revoir !")
                 break
+
+# Vérifie le choix de l'utilisateur pour le mode "Arena"
+
+elif answers['choice_mode'] == 'Arena (vous etes en duel)':
+    print("Vous avez choisi la classe Arena !")
+
+    player_character_response = inquirer.prompt(questions_character)
+    player_character = player_character_response['choice_character']
+
+    player_fighter_response = inquirer.prompt(questions_fighter)
+    player_fighter = player_fighter_response['choice_fighter']
+
+
+    if player_fighter == 'Barbare (Attaque 2 fois)' or player_fighter == 'Sorcier (utilise des sorts)':
+        if player_fighter == "Barbare (Attaque 2 fois)":
+            weapon_response = inquirer.prompt(questions_weapon)
+            user_weapon = None
+            weapon_condition = True
+
+            if weapon_response['choice_weapon'] == 'Épée (30 dps)':
+                user_weapon = sword_weapon
+            elif weapon_response['choice_weapon'] == 'Pioche (25 dps)':
+                user_weapon = pickaxe_weapon
+            elif weapon_response['choice_weapon'] == 'Coup de poing (20 dps)':
+                user_weapon = fist_weapon
+
+            player = Barbarian(player_character, None, user_weapon, 120)
+
+        else:
+            spell_response = inquirer.prompt(questions_spell)
+            user_spell = None
+            weapon_condition = True
+
+            if spell_response['choice_spell'] == 'Boule de feu (50 dps)':
+                user_spell = fireball_spell
+            elif spell_response['choice_spell'] == 'Tonerre (45 dps)':
+                user_spell = lightning_spell
+            elif spell_response['choice_spell'] == "Mur d'air (30 dps)":
+                user_spell = windwall_spell
+
+            player = Wizard(player_character, None, user_spell, 75, fist_weapon, 20)
+
+
+    bot_character = "Bot"
+    bot_weapon = sword_weapon 
+    bot = Barbarian(bot_character, None, bot_weapon, 100)  
+
+    arena = Arena(player, bot)  # Création d'une instance de la classe Arena
+
+    print(f"Vous affrontez {bot_character} dans l'arène !")
+
+    arena.fight()  # Appel de la méthode fight de la classe Arena
+
 elif answers['choice_mode'] == 'Arena (vous etes en duel)':
     print("Vous avez choisi la classe arena !")
 elif answers['choice_mode'] == 'Histoire (vous vous battez contre des monstres)':
