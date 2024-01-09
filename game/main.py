@@ -8,7 +8,7 @@ from characters.wizard import Wizard
 from gears.spell import Spell
 from arena import Arena
 import inquirer
-import subprocess
+from game_questions import GameQuestions
 
 # Initialisation des sorts, armures et armes
 
@@ -26,69 +26,24 @@ fist_weapon = Weapon('Coup de poing', 20)
 
 # Définition des questions pour les différents modes et choix de jeu
 
-questions_mode = [
-    inquirer.List('choice_mode',
-                  message="Sélectionnez un mode de jeu ",
-                  choices=['Histoire (vous vous battez contre des monstres)', 'Arena (vous etes en duel)', 'Punching-Ball (vous etes le seul a attaquer)', 'Quitter'],
-              ),
-]
-questions_character = [
-    inquirer.List('choice_character',
-                  message="Sélectionnez un character ",
-                  choices=['Bordan', 'Marleine', 'Zizou', 'Shappa', 'M', 'Quitter'],
-              ),
-]
-questions_fighter = [
-    inquirer.List('choice_fighter',
-                  message="Sélectionnez un attribu",
-                  choices=['Barbare (Attaque 2 fois)', 'Sorcier (utilise des sorts)', 'Quitter'],
-              ),
-]
-questions_weapon = [
-    inquirer.List('choice_weapon',
-                  message="Sélectionnez une arme ",
-                  choices=['Épée (30 dps)', 'Pioche (25 dps)', 'Coup de poing (20 dps)', 'Quitter'],
-              ),
-]
-questions_armor = [
-    inquirer.List('choice_armor',
-                  message="Sélectionnez une armure ",
-                  choices=['Armure légère (50 de défense)', 'Armure moyenne (75 de défense)', 'Armure complète (100 de défense)', 'Quitter'],
-              ),
-]
-questions_fight = [
-    inquirer.List('choice_fight',
-                  message="Voulez-vous attaquer ? ",
-                  choices=['Oui', 'Non', 'Quitter'],
-              ),
-]
-questions_spell = [
-    inquirer.List('choice_spell',
-                  message="Sélectionnez un sort ",
-                  choices=['Boule de feu (50 dps)', 'Tonerre (45 dps)', "Mur d'air (30 dps)", 'Quitter'],
-              ),
-]
-
+game_questions = GameQuestions()
 # Initialisation des variables pour les conditions
 
 armor_condition = False
 weapon_condition = False
 fight_condition = True
 
-# Demande à l'utilisateur de choisir un mode de jeu
-
-answers = inquirer.prompt(questions_mode)
-
+answers = inquirer.prompt(game_questions.questions_mode)
 # Vérifie le choix de l'utilisateur pour le mode "Punching-Ball"
 
 if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
     while fight_condition == True:
-            First_character_response = inquirer.prompt(questions_character)
+            First_character_response = inquirer.prompt(game_questions.questions_character)
             First_character = First_character_response['choice_character']
-            answers = inquirer.prompt(questions_fighter)
+            answers = inquirer.prompt(game_questions.questions_fighter)
             if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
                 if answers['choice_fighter'] == "Barbare (Attaque 2 fois)":
-                    answers = inquirer.prompt(questions_weapon)
+                    answers = inquirer.prompt(game_questions.questions_weapon)
                     user_weapon = None
                     weapon_condition = True
                     First_character_armor = None
@@ -101,7 +56,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     First_fighter = Barbarian(First_character, First_character_armor, user_weapon, 120)
 
                 else:
-                    answers = inquirer.prompt(questions_spell)
+                    answers = inquirer.prompt(game_questions.questions_spell)
                     user_spell = None
                     weapon_condition = True
                     First_character_armor = None
@@ -112,13 +67,13 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     elif answers['choice_spell'] == "Mur d'air (30 dps)":
                         user_spell = windwall_spell
                     First_fighter = Wizard(First_character, First_character_armor, user_spell, 75, fist_weapon, 60)
-            Second_character_response = inquirer.prompt(questions_character)
+            Second_character_response = inquirer.prompt(game_questions.questions_character)
             Second_character = Second_character_response['choice_character']
-            answers = inquirer.prompt(questions_fighter)
+            answers = inquirer.prompt(game_questions.questions_fighter)
             attack_type = True
             if answers['choice_fighter'] == 'Barbare (Attaque 2 fois)' or answers['choice_fighter'] == 'Sorcier (utilise des sorts)':
                 if answers['choice_fighter'] == "Barbare (Attaque 2 fois)":
-                    answers = inquirer.prompt(questions_weapon)
+                    answers = inquirer.prompt(game_questions.questions_weapon)
                     user_weapon = None
                     weapon_condition = True
                     if answers['choice_weapon'] == 'Épée (30 dps)':
@@ -130,7 +85,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     else:
                         weapon_condition = False
 
-                    answers = inquirer.prompt(questions_armor)
+                    answers = inquirer.prompt(game_questions.questions_armor)
                     user_armor = None
                     armor_condition = True
 
@@ -146,7 +101,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     Second_fighter = Barbarian(Second_character, user_armor, user_armor, 120)
 
                 else:
-                    answers = inquirer.prompt(questions_spell)
+                    answers = inquirer.prompt(game_questions.questions_spell)
                     user_spell = None
                     weapon_condition = True
                     if answers['choice_spell'] == 'Boule de feu (50 dps)':
@@ -157,7 +112,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                         user_spell = windwall_spell
                     else:
                         weapon_condition = False
-                    answers = inquirer.prompt(questions_armor)
+                    answers = inquirer.prompt(game_questions.questions_armor)
                     user_armor = None
                     armor_condition = True
 
@@ -199,7 +154,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                 print("-------------------------------")
                 attack_type = True
                 while attack_type == True:
-                    answers = inquirer.prompt(questions_fight)
+                    answers = inquirer.prompt(game_questions.questions_fight)
                     if answers['choice_fight'] == 'Oui':
                         First_fighter.attack(Second_fighter)
                         if Second_fighter.hp > 0:
@@ -238,16 +193,16 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
 elif answers['choice_mode'] == 'Arena (vous etes en duel)':
     print("Vous avez choisi la classe Arena !")
 
-    player_character_response = inquirer.prompt(questions_character)
+    player_character_response = inquirer.prompt(game_questions.questions_character)
     player_character = player_character_response['choice_character']
 
-    player_fighter_response = inquirer.prompt(questions_fighter)
+    player_fighter_response = inquirer.prompt(game_questions.questions_fighter)
     player_fighter = player_fighter_response['choice_fighter']
 
 
     if player_fighter == 'Barbare (Attaque 2 fois)' or player_fighter == 'Sorcier (utilise des sorts)':
         if player_fighter == "Barbare (Attaque 2 fois)":
-            weapon_response = inquirer.prompt(questions_weapon)
+            weapon_response = inquirer.prompt(game_questions.questions_weapon)
             user_weapon = None
             weapon_condition = True
 
@@ -261,7 +216,7 @@ elif answers['choice_mode'] == 'Arena (vous etes en duel)':
             player = Barbarian(player_character, None, user_weapon, 120)
 
         else:
-            spell_response = inquirer.prompt(questions_spell)
+            spell_response = inquirer.prompt(game_questions.questions_spell)
             user_spell = None
             weapon_condition = True
 
