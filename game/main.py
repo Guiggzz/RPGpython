@@ -281,7 +281,7 @@ elif answers['choice_mode'] == 'Arena (vous etes en duel)':
 
     arena = Arena(player, bot)  # Création d'une instance de la classe Arena
 
-    print(f"Vous affrontez {bot_character} dans l'arène !")
+    print(f"Vous affrontez {bot_character} dans l'arène !\n")
 
     arena.fight()  # Appel de la méthode fight de la classe Arena
 

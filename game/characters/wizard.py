@@ -10,6 +10,7 @@ class Wizard:
         self.spell = spell
         self.mana = mana 
     def attack(self, other):
+        
         if self.mana >= self.spell.mana:
             if other.armor is not None:
                 if other.armor.defense >= self.spell.damage:
