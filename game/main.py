@@ -9,6 +9,7 @@ from gears.spell import Spell
 from arena import Arena
 import inquirer
 from game_questions import GameQuestions
+from player_selection import PlayerSelections
 
 # Initialisation des sorts, armures et armes
 
@@ -24,9 +25,9 @@ sword_weapon = Weapon('Épée', 30)
 pickaxe_weapon = Weapon('Pioche', 25)
 fist_weapon = Weapon('Coup de poing', 20)
 
-# Définition des questions pour les différents modes et choix de jeu
-
 game_questions = GameQuestions()
+player_selections = PlayerSelections()
+
 # Initialisation des variables pour les conditions
 
 armor_condition = False
@@ -47,12 +48,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     user_weapon = None
                     weapon_condition = True
                     First_character_armor = None
-                    if answers['choice_weapon'] == 'Épée (30 dps)':
-                        user_weapon = sword_weapon
-                    elif answers['choice_weapon'] == 'Pioche (25 dps)':
-                        user_weapon = pickaxe_weapon
-                    elif answers['choice_weapon'] == 'Coup de poing (20 dps)':
-                        user_weapon = fist_weapon
+                    player_selections.select_weapon(answers)
                     First_fighter = Barbarian(First_character, First_character_armor, user_weapon, 120)
 
                 else:
@@ -60,12 +56,7 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     user_spell = None
                     weapon_condition = True
                     First_character_armor = None
-                    if answers['choice_spell'] == 'Boule de feu (50 dps)':
-                        user_spell = fireball_spell
-                    elif answers['choice_spell'] == 'Tonerre (45 dps)':
-                        user_spell = lightning_spell
-                    elif answers['choice_spell'] == "Mur d'air (30 dps)":
-                        user_spell = windwall_spell
+                    player_selections.select_spell(answers)
                     First_fighter = Wizard(First_character, First_character_armor, user_spell, 75, fist_weapon, 60)
             Second_character_response = inquirer.prompt(game_questions.questions_character)
             Second_character = Second_character_response['choice_character']
@@ -76,54 +67,24 @@ if answers['choice_mode'] == 'Punching-Ball (vous etes le seul a attaquer)':
                     answers = inquirer.prompt(game_questions.questions_weapon)
                     user_weapon = None
                     weapon_condition = True
-                    if answers['choice_weapon'] == 'Épée (30 dps)':
-                        user_weapon = sword_weapon
-                    elif answers['choice_weapon'] == 'Pioche (25 dps)':
-                        user_weapon = pickaxe_weapon
-                    elif answers['choice_weapon'] == 'Coup de poing (20 dps)':
-                        user_weapon = fist_weapon
-                    else:
-                        weapon_condition = False
-
+                    player_selections.select_weapon(answers)
                     answers = inquirer.prompt(game_questions.questions_armor)
                     user_armor = None
                     armor_condition = True
-
-                    if answers['choice_armor'] == "Armure légère (50 de défense)":
-                        user_armor = little_armor
-                    elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
-                        user_armor = mid_armor
-                    elif answers['choice_armor'] == "Armure complète (100 de défense)":
-                        user_armor = complete_armor
-                    else:
-                        armor_condition = False
-
+                    player_selections.select_armor(answers)
                     Second_fighter = Barbarian(Second_character, user_armor, user_armor, 120)
 
                 else:
                     answers = inquirer.prompt(game_questions.questions_spell)
                     user_spell = None
                     weapon_condition = True
-                    if answers['choice_spell'] == 'Boule de feu (50 dps)':
-                        user_spell = fireball_spell
-                    elif answers['choice_spell'] == 'Tonerre (45 dps)':
-                        user_spell = lightning_spell
-                    elif answers['choice_spell'] == "Mur d'air (30 dps)":
-                        user_spell = windwall_spell
-                    else:
-                        weapon_condition = False
+                    player_selections.select_spell(answers)
+                        
                     answers = inquirer.prompt(game_questions.questions_armor)
                     user_armor = None
                     armor_condition = True
 
-                    if answers['choice_armor'] == "Armure légère (50 de défense)":
-                        user_armor = little_armor
-                    elif answers['choice_armor'] == "Armure moyenne (75 de défense)":
-                        user_armor = mid_armor
-                    elif answers['choice_armor'] == "Armure complète (100 de défense)":
-                        user_armor = complete_armor
-                    else:
-                        armor_condition = False
+                    player_selections.select_armor(answers)
 
                     Second_fighter = Wizard(Second_character, user_armor, user_spell, 75, fist_weapon, 60)
                 if isinstance(First_fighter, Barbarian):
@@ -205,29 +166,15 @@ elif answers['choice_mode'] == 'Arena (vous etes en duel)':
             weapon_response = inquirer.prompt(game_questions.questions_weapon)
             user_weapon = None
             weapon_condition = True
-
-            if weapon_response['choice_weapon'] == 'Épée (30 dps)':
-                user_weapon = sword_weapon
-            elif weapon_response['choice_weapon'] == 'Pioche (25 dps)':
-                user_weapon = pickaxe_weapon
-            elif weapon_response['choice_weapon'] == 'Coup de poing (20 dps)':
-                user_weapon = fist_weapon
-
-            player = Barbarian(player_character, None, user_weapon, 120)
+            player_selections.select_weapon(answers)
+            player = Barbarian(player_character, None, player_selections.user_weapon, 120)
 
         else:
             spell_response = inquirer.prompt(game_questions.questions_spell)
             user_spell = None
             weapon_condition = True
-
-            if spell_response['choice_spell'] == 'Boule de feu (50 dps)':
-                user_spell = fireball_spell
-            elif spell_response['choice_spell'] == 'Tonerre (45 dps)':
-                user_spell = lightning_spell
-            elif spell_response['choice_spell'] == "Mur d'air (30 dps)":
-                user_spell = windwall_spell
-
-            player = Wizard(player_character, None, user_spell, 75, fist_weapon, 60)
+            player_selections.select_spell(answers)
+            player = Wizard(player_character, None, player_selections.user_spell, 75, fist_weapon, 60)
 
 
     bot_character = "Bot"

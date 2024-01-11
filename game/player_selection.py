@@ -1,4 +1,4 @@
-class PlayerSelection:
+class PlayerSelections:
     def __init__(self):
         self.user_weapon = None
         self.user_armor = None
