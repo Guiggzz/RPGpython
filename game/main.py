@@ -11,8 +11,6 @@ import inquirer
 from game_questions import GameQuestions
 from player_selection import PlayerSelections
 
-# Initialisation des sorts, armures et armes
-
 fireball_spell = Spell('Boule de feu', 50, 60)
 lightning_spell = Spell('Tonerre', 45, 50)
 windwall_spell = Spell("Mur d'air", 30, 30)
@@ -28,7 +26,7 @@ fist_weapon = Weapon('Coup de poing', 20)
 game_questions = GameQuestions()
 player_selections = PlayerSelections()
 
-# Initialisation des variables pour les conditions
+sword_weapon = Weapon('Épée', 30)
 
 armor_condition = False
 weapon_condition = False

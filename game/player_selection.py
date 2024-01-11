@@ -1,3 +1,22 @@
+from characters.character import Character
+from gears.armor import Armor
+from gears.weapon import Weapon
+from characters.barbarian import Barbarian
+from characters.wizard import Wizard
+from gears.spell import Spell
+
+fireball_spell = Spell('Boule de feu', 50, 60)
+lightning_spell = Spell('Tonerre', 45, 50)
+windwall_spell = Spell("Mur d'air", 30, 30)
+
+little_armor = Armor('armure partielle', 50)
+mid_armor = Armor('armure moyenne', 75)
+complete_armor = Armor('armure complète', 100)
+
+sword_weapon = Weapon('Épée', 30)
+pickaxe_weapon = Weapon('Pioche', 25)
+fist_weapon = Weapon('Coup de poing', 20)
+
 class PlayerSelections:
     def __init__(self):
         self.user_weapon = None
