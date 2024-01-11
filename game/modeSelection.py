@@ -90,8 +90,7 @@ class ModeSelections:
                             armor_condition = True
 
                             player_selections.select_armor(answers)
-
-                            Second_fighter = Wizard(Second_character, user_armor, user_spell, 75, fist_weapon, 60)
+                            player = Wizard(player_character, None, player_selections.user_spell, 75, fist_weapon, 60)
                         if isinstance(First_fighter, Barbarian):
                             if armor_condition and weapon_condition:
                                     print(f'\nVous avez choisi : \n{First_fighter.weapon.name} pour attaquer')
@@ -110,7 +109,6 @@ class ModeSelections:
                             print("\nVous avez la classe Barbare. Vous attaquez deux fois d'affilée !")
                         elif isinstance(First_fighter, Wizard): 
                             print("\nVous avez la classe Sorcier. Vous avez des sorts.")
-                            
                         print("-------------------------------")
                         print("Bilan: ")
                         print(First_character, 'à', First_fighter.hp, "HP")
