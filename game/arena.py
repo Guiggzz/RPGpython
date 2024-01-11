@@ -12,7 +12,7 @@ class Arena:
         self.second_character = second_character
 
     def fight(self):
-        self.print_mini_bilan()
+        self.print_mini_bilan() 
         input("\nEntrez pour commencer le combat")
         while self.first_character.hp > 0 and self.second_character.hp > 0:
             self.first_character.attack(self.second_character)
