@@ -1,7 +1,7 @@
 from characters.character import Character
 from gears.armor import Armor
 from gears.weapon import Weapon
-from characters.barbarian import Barbarian
+from characters.Barbarian import Barbarian
 from characters.wizard import Wizard
 from gears.spell import Spell
 import time

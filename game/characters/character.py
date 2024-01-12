@@ -4,12 +4,11 @@ from random import randint
 
 class Character:
     def __init__(self, name, armor=None, weapon=None, hp=100):
-        self.name = name
+        self.name = name 
         self.armor = armor if armor else Armor('armure partielle')
-        self.weapon = weapon if weapon else Weapon('Le saint batôn de berger')
+        self.weapon = weapon if weapon else Weapon('Le saint bâton de berger')
         self.hp = hp
         self.defense = self.armor.defense
-
     def attack(self, other): 
         random_value = randint(1, 100)
         if random_value >= 5:
