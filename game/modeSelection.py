@@ -10,6 +10,8 @@ from arena import Arena
 import inquirer
 from game_questions import GameQuestions
 from player_selection import PlayerSelections
+from characters.bestiaire import Zombie, Goblin, Dragon, Ghost, Boss, Character, Map
+import random
 
 fireball_spell = Spell('Boule de feu', 50, 60)
 lightning_spell = Spell('Tonerre', 45, 50)
@@ -22,6 +24,11 @@ complete_armor = Armor('armure complète', 100)
 sword_weapon = Weapon('Épée', 30)
 pickaxe_weapon = Weapon('Pioche', 25)
 fist_weapon = Weapon('Coup de poing', 20)
+
+goblin = Goblin('goblin', random.choice((little_armor, mid_armor, complete_armor)), random.choice((sword_weapon, pickaxe_weapon, fist_weapon)))
+dragon = Dragon('dragon', random.choice((little_armor, mid_armor, complete_armor)), random.choice((sword_weapon, pickaxe_weapon, fist_weapon)))
+zombie = Zombie('goblin', random.choice((little_armor, mid_armor, complete_armor)), random.choice((sword_weapon, pickaxe_weapon, fist_weapon)))
+ghost = Ghost('goblin', random.choice((little_armor, mid_armor, complete_armor)), random.choice((sword_weapon, pickaxe_weapon, fist_weapon)))
 
 game_questions = GameQuestions()
 player_selections = PlayerSelections()
@@ -152,8 +159,6 @@ class ModeSelections:
                         print("Au revoir !")
                         break
 
-        # Vérifie le choix de l'utilisateur pour le mode "Arena"
-
         elif answers['choice_mode'] == 'Arena (vous etes en duel)':
             print("Vous avez choisi la classe Arena !")
 
@@ -184,15 +189,52 @@ class ModeSelections:
             bot_weapon = sword_weapon 
             bot = Barbarian(bot_character, None, bot_weapon, 100)  
 
-            arena = Arena(player, bot)  # Création d'une instance de la classe Arena
+            arena = Arena(player, bot)
 
             print(f"Vous affrontez {bot_character} dans l'arène !\n")
 
-            arena.fight()  # Appel de la méthode fight de la classe Arena
+            arena.fight()
 
-        elif answers['choice_mode'] == 'Arena (vous etes en duel)':
-            print("Vous avez choisi la classe arena !")
+        
         elif answers['choice_mode'] == 'Histoire (vous vous battez contre des monstres)':
-            print("Vous avez choisi la classe histoire !")
+            print("Vous avez choisi la classe histoire !")            
+            player_character_response = inquirer.prompt(game_questions.questions_character)
+            player_character = player_character_response['choice_character']
+
+            player_fighter_response = inquirer.prompt(game_questions.questions_fighter)
+            player_fighter = player_fighter_response['choice_fighter']
+
+
+            if player_fighter == 'Barbare (Attaque 2 fois)' or player_fighter == 'Sorcier (utilise des sorts)':
+                if player_fighter == "Barbare (Attaque 2 fois)":
+                    weapon_response = inquirer.prompt(game_questions.questions_weapon)
+                    user_weapon = None
+                    weapon_condition = True
+                    player_selections.select_weapon(answers)
+                    player = Barbarian(player_character, None, player_selections.user_weapon, 120)
+
+                else:
+                    spell_response = inquirer.prompt(game_questions.questions_spell)
+                    user_spell = None
+                    weapon_condition = True
+                    player_selections.select_spell(answers)
+                    player = Wizard(player_character, None, player_selections.user_spell, 75, fist_weapon, 60)
+
+            
+            monster = random.choice((goblin, dragon, zombie, ghost))
+            map_size = 4
+            game_map = Map(num_rooms=map_size)
+            arena_monster = Arena(player, monster)
+
+            for room in game_map.rooms:
+                   if room.monster and player.hp >0:
+                            print(f"Salle {room.room_number}: {room.monster.name} ({room.monster.hp} HP)")
+                            arena_monster.fight()
+                   else:
+                            print(f"Salle {room.room_number}: Le couloir")
+
+            
+            
+
         elif answers['choice_mode'] == 'Quitter':
             print("Vous n'avez pas choisi de mode !")
