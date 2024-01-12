@@ -220,20 +220,30 @@ class ModeSelections:
                     player_selections.select_spell(answers)
                     player = Wizard(player_character, None, player_selections.user_spell, 75, fist_weapon, 60)
 
-            
-            monster = random.choice((goblin, dragon, zombie, ghost))
+            monster_types = [Goblin, Dragon, Zombie, Ghost]
+
             map_size = 4
             game_map = Map(num_rooms=map_size)
-            arena_monster = Arena(player, monster)
 
-            for room in game_map.rooms:
-                   if room.monster and player.hp >0:
-                            print(f"Salle {room.room_number}: {room.monster.name} ({room.monster.hp} HP)")
-                            arena_monster.fight()
-                   else:
-                            print(f"Salle {room.room_number}: Le couloir")
+            for i, room in enumerate(game_map.rooms, start=1):
+                if player.hp <= 0:
+                    print("Vous avez perdu. Fin du jeu.")
+                    break
+                
+                if room.monster:
+                    monster_type = random.choice(monster_types)
+                    monster = monster_type(f"Monstre {i}", hp=random.randint(50, 100))
+                    print(f"Salle {room.room_number}: {monster.name} ({monster.hp} HP)")
+                    arena_monster = Arena(player, monster)
+                    arena_monster.fight()
 
-            
+                    if player.hp <= 0:
+                        print("Vous avez perdu. Fin du jeu.")
+                        break
+                    
+                else:
+                    print(f"Salle {room.room_number}: Le couloir")
+
             
 
         elif answers['choice_mode'] == 'Quitter':
