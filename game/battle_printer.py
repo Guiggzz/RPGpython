@@ -1,4 +1,4 @@
-from characters.Barbarian import Barbarian
+from characters.barbarian import Barbarian
 from characters.wizard import Wizard
 from characters.character import Character
 # from characters.bestiaire import Monster
